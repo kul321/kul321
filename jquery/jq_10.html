@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	var $div = $("div")
+	
+	//width 스타일 값 가져오기
+	console.log( $div.css("width") )
+	
+	//width 스타일 적용하기
+	$div.css("width", "200px");
+	
+	//적용안됨
+	//	-> css() 함수는 !important취급하지않음
+// 	$div.css("width", "100px !important")
+
+	//-----------------------------------------
+	
+	//자바스크립트의 객체(Object) 타입
+	//	-> jQuery에서는 PlainObject라고 부른다
+	var obj = {
+			"key": "value"
+			, "key1": 123
+			, "key2": true
+			, "key3": null			
+	}
+	
+	//-----------------------------------------
+	
+	//PlainObject를 이용하여 여러개의 스타일지정
+	$div.css({
+		"width": "400px"
+		, "height": "300px"
+		, "border-color": "blue"
+		, "display": "inline-block"
+	})
+	
+	//-----------------------------------------
+	
+	var info = $div.css(["width","height","display"])
+	console.log( info )
+	
+	console.log("--- info.width ---")
+	console.log( info.width )
+	
+	info.width = "800px"
+	info.height = "500px"
+	
+	console.log( info )
+	
+	//객체 변수로 css 여러 개 적용하기
+	$div.css( info )
+})
+</script>
+
+</head>
+<body>
+
+<div style="width: 300px !important; height: 200px; border: 1px solid red;">
+
+	<p>하나</p>
+	<p>둘</p>
+	<p>셋</p>
+	
+</div>
+
+</body>
+</html>
+

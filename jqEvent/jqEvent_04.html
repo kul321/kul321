@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<!-- QUIZ -->
+
+<!-- 전송버튼을 클릭하면 입력된 메시지를
+	alert() 로 보여준다 -->
+
+<!-- 메시지 입력창에서 엔터키(13)를 누르면
+	#btnSend에 클릭이벤트를 발생시킨다 -->
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	//focus이벤트 발생시키기
+	//	->최초 입력위치 조절하기
+	$("input[name~='msg']").focus();
+	
+	//-----------------------------------------
+	
+	$("#btnSend").click(function() {
+		//클릭이벤트 확인
+		console.log("#btnSend clicked")
+		//-------------------------------------
+		
+		// jQuery DOM객체에 .val()함수를 사용하면
+		//value속성의 값을 얻어온다
+		
+// 		alert("입력 메시지 : " + $("input[name~='msg']").val() )
+		
+		//value속성의 값을 ""(빈문자열)로 채우기
+		//	-> input태그의 입력값이 지워짐
+// 		$("input[name~='msg']").val("")
+		
+		//focus 이벤트 발생시키기
+// 		$("input[name~='msg']").focus()
+		//-------------------------------------
+		
+		//jQuery DOM객체를 변수에 저장하고 사용하기
+// 		var $input = $("input[name~='msg']");
+		
+// 		alert("입력 메시지 : " + $input.val() )
+// 		$input.val("")
+// 		$input.focus()
+		//-------------------------------------
+
+		//이벤트발생 객체의 계층구조(형제노드)를 이용하기
+		
+		alert("입력 메시지 : " + $(this).prev().val() )
+		$(this).prev().val("")
+		$(this).prev().focus()		
+		
+	}) //#btnSend click event listener end
+	
+	//----------------------------------------
+	
+	// 메시지 입력 창에서 엔터키를 입력하면
+	//전송버튼을 클릭한 효과 발생시키기
+	//	-> keydown 이벤트 활용
+	//	-> 이벤트객체의 keyCode가 13번(엔터)인지 판단
+	
+	$("input[name~='msg']").keydown(function(e) {
+		//keydown이벤트확인
+		console.log('here')
+		//-------------------------------------
+		
+		//이벤트 객체
+// 		console.log( e )
+
+		//이벤트 발생한 keyCode
+// 		console.log( e.keyCode )
+
+		//엔터키 눌림 판단
+		//	-> Enter KeyCode == 13
+		//	-> input태그에 내용이 적혀있어야 전송
+		if( e.keyCode == 13 ) {
+			console.log("enter key")
+			
+			//value값이 없으면 WARNING출력 및 중단
+			if( $(this).val() == '' ) {
+				alert("[WARNING] 내용을 입력하세요")
+				return
+			}
+			
+			//#btnSend에 클릭이벤트 발생시키기
+			$("#btnSend").click()
+		}
+	})
+	
+	//-------------------------------------------
+	
+	//#btnSend 버튼 비활성화
+	$("#btnSend").prop("disabled", true)
+	
+	//키보드가 떼어질 때마다 반응
+	$("input[name~='msg']").keyup(function() {
+		console.log("keyup", $(this).val() )
+		
+		//내용이 적혀있으면 버튼 활성화
+		//내용이 적혀있지 않으면 버튼 비활성화 
+		if( $(this).val() == '' ) {
+// 			$(this).next().prop("disabled", true)
+			$("#btnSend").prop("disabled", true)
+		} else {
+// 			$(this).next().prop("disabled", false)
+			$("#btnSend").prop("disabled", false)
+		}
+	})
+	
+});
+</script>
+
+</head>
+<body>
+
+<div>
+	<input type="text" name="msg" />
+	<button id="btnSend">전송</button>
+</div>
+
+</body>
+</html>
+
+
+
+
