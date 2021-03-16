@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+
+var name = "Jio Han" //단순 문자열
+var name2 = "Alice a Dana" // 단순 문자열
+
+//정규식 리터럴
+var regex = /Jio/
+
+//-------------------------------------
+//정규식.test("문자열")
+// Boolean값을 반환
+// true    - 정규식패턴이 문자열에 포함되어있음
+// false   - 그렇지 않음
+
+// /Jio/.test( "Jio Han")
+console.log( regex.test( name ) ) //true
+
+// /Jio/.test("Alice a Dana")
+console.log( regex.test(name2 ) )//false
+
+console.log( /Dana/.test(name2 ) ) //true
+console.log( /a/.test(name2 ) ) //true
+console.log( /alice/.test(name2 ) ) //false
+
+//-----------------------------------------
+console.log("-------------------")
+
+//정규식.exec("문자열")
+// 배열 - 정규식 패턴으로 찾은 문자열
+// null - 패턴에 맞는 문자열이 없을 때
+
+console.log( regex.exec(name) ) //[ "Jio" ]
+console.log( regex.exec(name2) ) //null
+
+console.log( /a/.exec(name2) ) //[ "a" ]
+
+//------------------------------------------
+console.log("-------------------")
+
+//"문자열".match( 정규식 )
+//  배열 - 정규식 패턴으로 찾은 문자열
+//  null - 패턴에 맞는 문자열이 없을 때
+
+//기본 매칭
+// -> 처음 매칭된 문자열 한 개 반환
+console.log( name2.match( /a/ ) )
+
+//g Flag(옵션)을 사용한 정규식
+//  -> 전역(global) 매칭, 전부 다 반환
+console.log( name2.match( /a/g ) )
+
+//i Flag(옵션)을 사용한 정규식
+//  ->대소문자무시(ignore case)
+console.log( name2.match( /a/i ) )
+
+//gi Flag(옵션)을 사용한 정규식
+//  ->g Flag + i Flag
+console.log( name2.match( /a/gi ) )
+</script>
+</head>
+<body>
+
+</body>
+</html>
