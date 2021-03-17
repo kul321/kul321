@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript"
+src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	//--- submit 이벤트 리스너 등록 ---
+	$("#myform").on("submit", function(){})
+	$("#myform").submit(function(){})
+	
+	myform.addEventListener("submit", function() {})
+	myform.onsubmit = function() {}
+	//--------------------------------
+	//#myform에 submit 이벤트 리스너 등록하기
+	// -> <form>가 서버로 submit하기 직전에 실행된다
+	$("#myform").submit(function(){
+		
+		console.log("submit 이벤트 발생")
+		
+		//이벤트 리스너 중단
+// 		return false;
+		// -><form>태그의 submit동작이 중단된다
+		
+		//------------------------------------
+		//#uid 검증
+		var uidReg = /^[A-Z][A-Za-z0-9]{5,}$/
+		if(!uidReg.test( $("#uid").val() )){
+			alert("아이디를 잘 입력하세요!")
+			
+			$("#uid").val("")//잘못된 작성 내용 지우기
+			$("#uid").focus()//포커스 이동시키기
+			
+			//submit 중단
+			return false;
+		}
+		
+		//-------------------------------------
+		
+		//#upw 검증
+		var upwReg = /^[A-Za-z0-9]{6,}$/
+		if(!upwReg.test( $("#upw").val() )) {
+			alert("비밀번호를 잘 입력하세요!")
+			
+			$("#upw").val("")//잘못된 작성 내용 지우기
+			$("#upw").focus()//포커스 이동시키기
+			
+			//submit 중단
+			return false;
+		}
+		
+		//-----------------------------------
+		
+		//패스워드 확인입력이 일치하는지 검증
+		if($("#upw").val()!=$("#upw_chk").val() ) {
+			alert("패스워드가 다르네요!")
+			
+			//두 입력 다 지우고 비밀번호 다시 입력시키기
+// 			$("#upw").val("")//잘못된 작성 내용 지우기
+// 			$("#upw").focus()//포커스 이동시키기
+			$("#upw").select()//select 이벤트 발생시키기
+			
+			//<input>태그에 select이벤트가 발생하면 작성된 내용을 선택한 채로 focus가 넘어간다
+			
+			$("#upw_chk").val("")//잘못된 작성 내용 지우기
+			
+			return false;
+		}
+	}); //myform  submit end
+	//-----------------------------------------------
+	
+	//#btnComment 버튼을 누르면 #comment가 보이도록 만들기
+	$("#btnComment").click(function(){
+		
+// 		//방법1.
+// 		if( $("#comment").hasClass("displayNone") ) {
+// 			$("#comment").removeClass("displayNone")
+// 		} else {
+// 			$("#comment").addClass("displayNone")
+// 		}
+	
+		//방법2.
+		$("#comment").toggleClass("displayNone")
+
+		
+		
+	})//$("#btnComment").click end
+	
+	$("#btnShow").click(function(){
+		//객체를 보여지도록 만든다
+		// ->style속성의 display를 기본설정으로 바꾼다
+		$("#myImg").show();
+	}) //$("#btnShow").click
+	
+	$("#btnHide").click(function(){
+		//객체가 보이지않도록 만든다
+		// ->style속성의 display를 none으로 바꾼다
+		$("#myImg").hide();
+	}) //$("#btnHide").click
+	
+	$("#btnToggle").click(function(){
+		//객체의 style속성의 display값을
+		//기본설정<->none을 번갈아가며 적용
+		$("#myImg").toggle();
+	})
+	
+})//document ready end
+</script>
+
+<style type="text/css">
+.displayNone{
+	display: none;
+}</style>
+</head>
+<body>
+
+<form id="myform" action="#" method="post">
+
+	아이디 <input type="text" name="uid" id="uid" /><br>
+	패스워드 <input type="text" name="upw" id="upw" /><br>
+	패스워드 확인 <input type="text" id="upw_chk" /><br><br>
+
+<button>전송</button>
+<input type="submit" value="전송"/>
+
+<hr>
+
+<!-- <form>태그 안에서 <button>을 만들면 submit 버튼으로 만들어진다 -->
+<!-- submit을 수행하지 않도록 만들려면 type="button" 속성을 추가해주면 된다 -->
+<button id="btnComment" type="button">자기소개</button><br><br>
+
+<textarea rows="5" cols="40"
+id="comment" name="comment" class = "displayNone"></textarea>
+
+<hr>
+
+<button id="btnShow" type="button">보여주기</button>
+<button id="btnHide" type="button">숨기기</button>
+<button id="btnToggle" type="button">보여주기/숨기기</button>
+
+<img src="../file/mi.jpg" width="300" height="200" id="myImg">
+</form>
+</body>
+</html>
